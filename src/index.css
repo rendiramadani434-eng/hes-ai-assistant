@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+/* Switch dark: variant to be class-based (toggled via document.documentElement.classList)
+   instead of Tailwind v4's default prefers-color-scheme media query. Without this,
+   the in-app dark mode toggle button has no effect on dark: utility classes. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", "Poppins", ui-sans-serif, system-ui;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+  
+  --color-primary-base: #0F766E; /* Emerald Green */
+  --color-accent-gold: #D4AF37;  /* Gold */
+  --color-emerald-custom: #059669; /* Used by AkadSimulator accents */
+}
+
+/* Custom global utility classes and scrollbars */
+html {
+  font-family: var(--font-sans);
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(15, 118, 110, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 118, 110, 0.6);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.dark .glass-panel {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Background gradient animations */
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1) translate(0px, 0px);
+  }
+  33% {
+    transform: scale(1.1) translate(30px, -50px);
+  }
+  66% {
+    transform: scale(0.9) translate(-20px, 20px);
+  }
+}
+
+.animate-glow-1 {
+  animation: pulseGlow 15s infinite alternate ease-in-out;
+}
+
+.animate-glow-2 {
+  animation: pulseGlow 20s infinite alternate-reverse ease-in-out;
+}
+

@@ -1,0 +1,6 @@
+{
+  "name": "HES AI Assistant",
+  "description": "Asisten Cerdas untuk Mahasiswa Hukum Ekonomi Syariah dalam memahami fikih muamalah, ekonomi syariah, dan penelitian akademik.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
