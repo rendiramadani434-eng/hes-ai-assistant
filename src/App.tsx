@@ -219,8 +219,14 @@ export default function App() {
       {/* 1. Header Navigation Bar */}
       <nav className="sticky top-0 z-50 bg-[#0F766E] text-white shadow-xl border-b-4 border-[#D4AF37] px-4 md:px-8 py-3 flex flex-wrap items-center justify-between" id="navbar">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center font-extrabold text-[#0F766E] text-2xl shadow-md border border-[#D4AF37]/50">
-            HES
+          <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-md border border-[#D4AF37]/50 shrink-0">
+            <svg viewBox="0 0 32 32" className="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
+              {/* Open book shape representing fikih/kitab */}
+              <path d="M16 8C13.5 6.5 9.5 6 6 6.5V23C9.5 22.5 13.5 23 16 24.5C18.5 23 22.5 22.5 26 23V6.5C22.5 6 18.5 6.5 16 8Z" fill="#0F766E"/>
+              <path d="M16 8V24.5" stroke="#D4AF37" strokeWidth="1.2"/>
+              {/* Small star accent */}
+              <path d="M16 2L17.2 5.2L20.5 5.5L18 7.8L18.7 11L16 9.3L13.3 11L14 7.8L11.5 5.5L14.8 5.2L16 2Z" fill="#D4AF37"/>
+            </svg>
           </div>
           <div>
             <div className="flex items-center gap-2">
@@ -581,7 +587,12 @@ export default function App() {
                       <button
                         key={idx}
                         onClick={() => handlePresetClick(q)}
-                        className="text-left bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 p-2 rounded-lg hover:border-[#0F766E] dark:hover:border-teal-500 hover:bg-teal-50/20 dark:hover:bg-slate-800/50 transition-all font-medium text-slate-700 dark:text-slate-300 line-clamp-1"
+                        className="text-left bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 px-3 py-2.5 rounded-lg hover:border-[#0F766E] dark:hover:border-teal-500 hover:bg-teal-50/20 dark:hover:bg-slate-800/50 transition-all font-medium text-slate-700 dark:text-slate-300 leading-snug overflow-hidden"
+                        style={{
+                          display: "-webkit-box",
+                          WebkitBoxOrient: "vertical",
+                          WebkitLineClamp: 2,
+                        }}
                       >
                         ❓ {q}
                       </button>
