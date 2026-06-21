@@ -323,7 +323,7 @@ export default function App() {
               Inovasi Belajar Hukum Ekonomi Syariah Terkini
             </span>
             <h1 className="text-3xl md:text-4xl font-extrabold font-display leading-tight">
-              Satu Asisten Pintar Untuk Semua <span className="text-[#D4AF37]">Studi Syariah & Muamalah</span>
+              Satu Asisten Pintar Untuk Mahasiswa Prodi <span className="text-[#D4AF37]">Hes & Eskyar</span>
             </h1>
             <p className="text-teal-100 text-sm md:text-base mt-2 max-w-xl font-sans font-light">
               Mudah memahami perbedaan akad keuangan syariah, menyelaraskan fatwa DSN-MUI dengan hukum positif Indonesia, dan menyusun outline penelitian skripsi yang siap bimbingan.
