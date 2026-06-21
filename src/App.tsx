@@ -85,10 +85,22 @@ export default function App() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
+  // Scroll smoothly to the main tabs/content section (used after switching tabs from hero buttons)
+  const scrollToTabSection = () => {
+    const el = document.getElementById("main-tabs-section");
+    if (el) {
+      // Small delay to ensure layout has updated after tab/state change
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 50);
+    }
+  };
+
   // Handle Preset Clicks
   const handlePresetClick = (query: string) => {
     setInputText(query);
     setActiveMainTab("chat");
+    scrollToTabSection();
   };
 
   // Submit Question to API (Express -> Gemini SDK)
@@ -323,7 +335,7 @@ export default function App() {
               Inovasi Belajar Hukum Ekonomi Syariah Terkini
             </span>
             <h1 className="text-3xl md:text-4xl font-extrabold font-display leading-tight">
-              Satu Asisten Pintar Untuk Mahasiswa Prodi <span className="text-[#D4AF37]">Hes & Eskyar</span>
+              Satu Asisten Pintar Untuk Semua <span className="text-[#D4AF37]">Studi Syariah & Muamalah</span>
             </h1>
             <p className="text-teal-100 text-sm md:text-base mt-2 max-w-xl font-sans font-light">
               Mudah memahami perbedaan akad keuangan syariah, menyelaraskan fatwa DSN-MUI dengan hukum positif Indonesia, dan menyusun outline penelitian skripsi yang siap bimbingan.
@@ -336,7 +348,7 @@ export default function App() {
                 Mulai Bertanya <ChevronRight className="w-3.5 h-3.5" />
               </button>
               <button 
-                onClick={() => setActiveMainTab("pustaka")}
+                onClick={() => { setActiveMainTab("pustaka"); scrollToTabSection(); }}
                 className="bg-white/10 hover:bg-white/20 border border-white/20 text-white px-5 py-2 rounded-xl text-xs font-semibold transition-all"
               >
                 Jelajahi Fitur Akad
@@ -374,7 +386,7 @@ export default function App() {
         <section className="lg:col-span-9 space-y-6 flex flex-col justify-stretch">
           
           {/* Main Action Tabs Controller */}
-          <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/60 dark:border-slate-800 shadow-sm">
+          <div id="main-tabs-section" className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/60 dark:border-slate-800 shadow-sm">
             
             {/* Nav Title & Context */}
             {activeMainTab === "chat" && (
