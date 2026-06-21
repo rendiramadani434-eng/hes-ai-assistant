@@ -323,7 +323,7 @@ export default function App() {
               Inovasi Belajar Hukum Ekonomi Syariah Terkini
             </span>
             <h1 className="text-3xl md:text-4xl font-extrabold font-display leading-tight">
-              Satu Asisten Pintar Untuk Mahasiswa IAIB <span className="text-[#D4AF37]">Prodi HES & Eksyar </span>
+              Satu Asisten Pintar Untuk Semua <span className="text-[#D4AF37]">Studi Syariah & Muamalah</span>
             </h1>
             <p className="text-teal-100 text-sm md:text-base mt-2 max-w-xl font-sans font-light">
               Mudah memahami perbedaan akad keuangan syariah, menyelaraskan fatwa DSN-MUI dengan hukum positif Indonesia, dan menyusun outline penelitian skripsi yang siap bimbingan.
@@ -371,7 +371,7 @@ export default function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
         {/* Left Side Content - Tabs & Interactivity */}
-        <section className="lg:col-span-8 space-y-6 flex flex-col justify-stretch">
+        <section className="lg:col-span-9 space-y-6 flex flex-col justify-stretch">
           
           {/* Main Action Tabs Controller */}
           <div className="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/60 dark:border-slate-800 shadow-sm">
@@ -426,7 +426,7 @@ export default function App() {
                 </div>
 
                 {/* Main Chat Stream Container */}
-                <div className="h-[430px] overflow-y-auto px-2 space-y-4 custom-scroll" id="chat-messages-container">
+                <div className="h-[600px] overflow-y-auto px-2 space-y-4 custom-scroll" id="chat-messages-container">
                   {messages.map((msg) => (
                     <div 
                       key={msg.id} 
@@ -587,11 +587,11 @@ export default function App() {
                       <button
                         key={idx}
                         onClick={() => handlePresetClick(q)}
-                        className="text-left bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 px-3 py-2.5 rounded-lg hover:border-[#0F766E] dark:hover:border-teal-500 hover:bg-teal-50/20 dark:hover:bg-slate-800/50 transition-all font-medium text-slate-700 dark:text-slate-300 leading-snug overflow-hidden"
+                        className="text-left bg-white dark:bg-slate-900 border border-slate-200/60 dark:border-slate-800 px-3 py-2.5 rounded-lg hover:border-[#0F766E] dark:hover:border-teal-500 hover:bg-teal-50/20 dark:hover:bg-slate-800/50 transition-all font-medium text-slate-700 dark:text-slate-300 leading-snug overflow-hidden min-h-[64px]"
                         style={{
                           display: "-webkit-box",
                           WebkitBoxOrient: "vertical",
-                          WebkitLineClamp: 2,
+                          WebkitLineClamp: 3,
                         }}
                       >
                         ❓ {q}
@@ -946,7 +946,7 @@ export default function App() {
         </section>
 
         {/* Right Side Column (Dynamic Information Hub) */}
-        <aside className="lg:col-span-4 space-y-6">
+        <aside className="lg:col-span-3 space-y-6">
           
           {/* 1. Interactive Slider for Thesis Progress */}
           <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/60 dark:border-slate-800 shadow-sm">

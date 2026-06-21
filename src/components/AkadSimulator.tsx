@@ -164,22 +164,22 @@ export default function AkadSimulator() {
           <div className="lg:col-span-7 space-y-6">
             <div className="bg-gradient-to-br from-teal-50 to-emerald-50/30 dark:from-slate-900 dark:to-slate-950 p-6 rounded-2xl border border-teal-100/50 dark:border-slate-800 shadow-sm">
               <h4 className="text-xs uppercase tracking-wider text-primary-base font-semibold mb-4">Hasil Kalkulasi Murabahah</h4>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800/60">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 min-w-0">
                   <span className="block text-[11px] text-slate-500 dark:text-slate-400 font-medium">Uang Pokok yang Dibiayai</span>
-                  <span className="text-lg font-bold text-slate-800 dark:text-slate-100">{formatRupiah(sisaPembiayaan)}</span>
+                  <span className="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100 break-words">{formatRupiah(sisaPembiayaan)}</span>
                 </div>
-                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800/60">
+                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 min-w-0">
                   <span className="block text-[11px] text-slate-500 dark:text-slate-400 font-medium">Total Margin Bank ({marginTahun}%)</span>
-                  <span className="text-lg font-bold text-amber-600 dark:text-yellow-500">{formatRupiah(totalMargin)}</span>
+                  <span className="text-base sm:text-lg font-bold text-amber-600 dark:text-yellow-500 break-words">{formatRupiah(totalMargin)}</span>
                 </div>
-                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800/60">
+                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 min-w-0">
                   <span className="block text-[11px] text-slate-500 dark:text-slate-400 font-medium">Total Harga Jual Bank</span>
-                  <span className="text-lg font-bold text-slate-800 dark:text-slate-100">{formatRupiah(totalHargaJual)}</span>
+                  <span className="text-base sm:text-lg font-bold text-slate-800 dark:text-slate-100 break-words">{formatRupiah(totalHargaJual)}</span>
                 </div>
-                <div className="bg-teal-600 text-white p-4 rounded-xl shadow-md">
+                <div className="bg-teal-600 text-white p-4 rounded-xl shadow-md min-w-0">
                   <span className="block text-[11px] text-teal-100 font-medium">Angsuran Bulanan</span>
-                  <span className="text-xl font-extrabold">{formatRupiah(angsuranBulanan)}</span>
+                  <span className="text-lg sm:text-xl font-extrabold break-words">{formatRupiah(angsuranBulanan)}</span>
                   <span className="block text-[10px] text-teal-100">selama {tenor} bulan</span>
                 </div>
               </div>
@@ -302,7 +302,7 @@ export default function AkadSimulator() {
                     <span className="inline-block px-1.5 py-0.5 text-[9px] bg-teal-100 dark:bg-teal-900 text-teal-800 dark:text-teal-200 rounded font-semibold mb-1">Milik Investor</span>
                     <span className="block text-xs text-slate-500 dark:text-slate-400 font-medium">Bagi Hasil Shahibul Maal ({nisbahShahibul}%)</span>
                   </div>
-                  <span className="text-xl font-bold text-slate-800 dark:text-slate-100 mt-2 block">{formatRupiah(bagianShahibulMaal)}</span>
+                  <span className="text-xl font-bold text-slate-800 dark:text-slate-100 mt-2 block break-words">{formatRupiah(bagianShahibulMaal)}</span>
                 </div>
 
                 <div className="bg-white dark:bg-slate-900 p-4 rounded-xl border border-slate-100 dark:border-slate-800/60 flex flex-col justify-between">
@@ -310,7 +310,7 @@ export default function AkadSimulator() {
                     <span className="inline-block px-1.5 py-0.5 text-[9px] bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-yellow-500 rounded font-semibold mb-1">Milik Pengelola</span>
                     <span className="block text-xs text-slate-500 dark:text-slate-400 font-medium">Bagi Hasil Mudharib ({100 - nisbahShahibul}%)</span>
                   </div>
-                  <span className="text-xl font-bold text-amber-700 dark:text-yellow-600 mt-2 block">{formatRupiah(bagianMudharib)}</span>
+                  <span className="text-xl font-bold text-amber-700 dark:text-yellow-600 mt-2 block break-words">{formatRupiah(bagianMudharib)}</span>
                 </div>
               </div>
 
