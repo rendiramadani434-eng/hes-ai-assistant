@@ -256,7 +256,7 @@ export default function App() {
           <button 
             id="tab-chat"
             onClick={() => setActiveMainTab("chat")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 ${
               activeMainTab === "chat" 
                 ? "bg-white text-[#0F766E] shadow" 
                 : "text-white/90 hover:bg-white/10"
@@ -269,40 +269,40 @@ export default function App() {
           <button 
             id="tab-pustaka"
             onClick={() => setActiveMainTab("pustaka")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 ${
               activeMainTab === "pustaka" 
                 ? "bg-white text-[#0F766E] shadow" 
                 : "text-white/90 hover:bg-white/10"
             }`}
           >
             <BookOpen className="w-3.5 h-3.5" />
-            <span>Pustaka Akad</span>
+            <span className="hidden sm:inline">Pustaka Akad</span>
           </button>
 
           <button 
             id="tab-simulator"
             onClick={() => setActiveMainTab("simulator")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 ${
               activeMainTab === "simulator" 
                 ? "bg-white text-[#0F766E] shadow" 
                 : "text-white/90 hover:bg-white/10"
             }`}
           >
             <Scale className="w-3.5 h-3.5" />
-            <span>Kalkulator Akad</span>
+            <span className="hidden sm:inline">Kalkulator Akad</span>
           </button>
 
           <button 
             id="tab-skripsi"
             onClick={() => setActiveMainTab("skripsi")}
-            className={`px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all ${
+            className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shrink-0 ${
               activeMainTab === "skripsi" 
                 ? "bg-white text-[#0F766E] shadow" 
                 : "text-white/90 hover:bg-white/10"
             }`}
           >
             <GraduationCap className="w-3.5 h-3.5" />
-            <span>Panduan Skripsi</span>
+            <span className="hidden sm:inline">Panduan Skripsi</span>
           </button>
 
           <div className="border-l border-teal-600/60 pl-3 md:pl-4 flex items-center gap-2">

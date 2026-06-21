@@ -36,20 +36,20 @@ export default function AkadSimulator() {
 
   return (
     <div id="simulator-akad" className="w-full">
-      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-gray-100 dark:border-slate-800">
+      <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-4 border-b border-gray-100 dark:border-slate-800 gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
-            <Landmark className="w-6 h-6 text-primary-base" />
+          <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-800 dark:text-white flex items-center gap-2">
+            <Landmark className="w-5 h-5 sm:w-6 sm:h-6 text-primary-base shrink-0" />
             Simulasi & Kalkulator Akad Syariah
           </h2>
           <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
             Visualisasi perhitungan kuantitatif dan alur transaksi Lembaga Keuangan Syariah sesuai standar fikih.
           </p>
         </div>
-        <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl mt-4 md:mt-0 max-w-xs border border-slate-200/50 dark:border-slate-800">
+        <div className="flex bg-slate-100 dark:bg-slate-900 p-1 rounded-xl w-full md:w-auto md:max-w-xs border border-slate-200/50 dark:border-slate-800">
           <button
             onClick={() => setActiveTab("murabahah")}
-            className={`flex-1 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+            className={`flex-1 px-2 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-all ${
               activeTab === "murabahah"
                 ? "bg-primary-base text-white shadow-md"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
@@ -59,7 +59,7 @@ export default function AkadSimulator() {
           </button>
           <button
             onClick={() => setActiveTab("mudharabah")}
-            className={`flex-1 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+            className={`flex-1 px-2 sm:px-4 py-2 rounded-lg text-[11px] sm:text-xs font-semibold transition-all ${
               activeTab === "mudharabah"
                 ? "bg-primary-base text-white shadow-md"
                 : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
