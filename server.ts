@@ -28,6 +28,48 @@ function getGenAI() {
   return aiInstance;
 }
 
+// Detect transient/overload errors worth retrying (503 = model overloaded, 429 = rate limited)
+function isRetryableError(error: any): boolean {
+  const message = typeof error?.message === "string" ? error.message : JSON.stringify(error);
+  return (
+    error?.code === 503 ||
+    error?.code === 429 ||
+    message.includes('"code":503') ||
+    message.includes('"code":429') ||
+    message.toLowerCase().includes("overload") ||
+    message.toLowerCase().includes("high demand") ||
+    message.toLowerCase().includes("unavailable")
+  );
+}
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Call Gemini with automatic retry + exponential backoff when the model is temporarily
+// overloaded (503) or rate-limited (429). Other errors (bad request, auth, etc.) fail fast.
+async function callGeminiWithRetry(params: any, maxRetries = 2): Promise<any> {
+  const ai = getGenAI();
+  let lastError: any;
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await ai.models.generateContent(params);
+    } catch (error: any) {
+      lastError = error;
+      const isLastAttempt = attempt === maxRetries;
+
+      if (!isRetryableError(error) || isLastAttempt) {
+        throw error;
+      }
+
+      const delayMs = 800 * Math.pow(2, attempt);
+      console.warn(`Gemini overloaded, retrying in ${delayMs}ms (attempt ${attempt + 1}/${maxRetries})`);
+      await sleep(delayMs);
+    }
+  }
+
+  throw lastError;
+}
+
 // System Persona & Mode Definitions
 const BASE_PERSONA = `Anda adalah dosen senior dan asisten akademik Hukum Ekonomi Syariah (HES) yang menguasai fikih muamalah klasik, Kompilasi Hukum Ekonomi Syariah (KHES), fatwa Dewan Syariah Nasional (DSN-MUI), sistem perbankan syariah, asuransi syariah, lembaga keuangan syariah, metodologi riset akademik, dan hukum positif Indonesia.
 Berikan respons yang ilmiah, sistematis, ramah akademis, terarah, dan berbasis referensi konkret.`;
@@ -58,8 +100,6 @@ app.post("/api/chat", async (req, res) => {
       });
     }
 
-    const ai = getGenAI();
-
     // Mode-specific prompts
     let modeInstruction = DEFAULTS_MODE_INSTRUCTIONS;
     if (mode === "akademik") {
@@ -77,7 +117,7 @@ app.post("/api/chat", async (req, res) => {
     })) : [];
 
     // Combine history for generation context
-    const response = await ai.models.generateContent({
+    const response = await callGeminiWithRetry({
       model: "gemini-3.5-flash",
       contents: [
         ...formattedHistory,
@@ -119,9 +159,19 @@ app.post("/api/chat", async (req, res) => {
 
   } catch (error: any) {
     console.error("Gemini API Error:", error);
-    return res.status(500).json({ 
-      error: "Gagal menghubungkan ke HES AI Assistant.",
-      message: error.message || "Unknown error occurred"
+
+    const overloaded = isRetryableError(error);
+
+    return res.status(503).json({
+      ringkasan: overloaded
+        ? "Server AI sedang sangat sibuk."
+        : "Terjadi kesalahan saat menghubungi server AI.",
+      penjelasanMendalam: overloaded
+        ? "Model Gemini yang digunakan sedang menerima banyak permintaan dari pengguna lain di seluruh dunia secara bersamaan. Sistem sudah mencoba menghubungi ulang beberapa kali secara otomatis, namun masih belum berhasil.\n\nSilakan **tunggu sekitar 30-60 detik**, lalu kirim ulang pertanyaan Anda. Ini bukan masalah pada akun atau kunci API Anda."
+        : "Terjadi kendala teknis saat menghubungi layanan AI. Silakan coba lagi beberapa saat lagi.",
+      referensiHukum: [],
+      saranBacaan: [],
+      _debug: error.message || "Unknown error occurred"
     });
   }
 });

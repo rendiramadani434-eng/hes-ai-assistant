@@ -147,11 +147,25 @@ export default function App() {
         })
       });
 
-      if (!response.ok) {
-        throw new Error("Respon server bermasalah");
-      }
-
       const data = await response.json();
+
+      if (!response.ok) {
+        // Server already returned a well-formed, user-friendly error payload (e.g. Gemini overloaded).
+        // Use it directly instead of throwing into the generic catch-all fallback below.
+        const aiErrMsg: ChatMessage = {
+          id: `ai-err-${Date.now()}`,
+          sender: "ai",
+          text: data.ringkasan || "Server AI sedang sibuk.",
+          timestamp: new Date().toLocaleTimeString("id-ID", { hour: '2-digit', minute: '2-digit' }),
+          ringkasan: data.ringkasan,
+          penjelasanMendalam: data.penjelasanMendalam,
+          referensiHukum: data.referensiHukum || [],
+          saranBacaan: data.saranBacaan || [],
+          mode: chatMode
+        };
+        setMessages(prev => [...prev, aiErrMsg]);
+        return;
+      }
 
       const aiMsg: ChatMessage = {
         id: `ai-${Date.now()}`,
@@ -169,15 +183,16 @@ export default function App() {
 
     } catch (err: any) {
       console.error(err);
-      // Fallback response inside the UI
+      // Fallback response inside the UI — only reached for genuine network failures
+      // (request never reached the server, or response wasn't valid JSON at all).
       const errorMsg: ChatMessage = {
         id: `ai-err-${Date.now()}`,
         sender: "ai",
         text: "Koneksi Bermasalah",
         timestamp: new Date().toLocaleTimeString("id-ID", { hour: '2-digit', minute: '2-digit' }),
-        ringkasan: "Maaf, terjadi kesalahan saat menghubungi server pintar.",
-        penjelasanMendalam: "Hal ini dapat disebabkan karena hilangnya koneksi internet atau kunci API `GEMINI_API_KEY` belum terisi di setelan rahasia. **Silakan coba lagi beberapa saat kemudian**.\n\nNamun jangan khawatir, Anda tetap bisa menggunakan Pustaka Akad Lengkap, Sektor Hukum, dan Simulator Maslahat Kuantitatif di tab navigasi di atas secara instan bebas kuota!",
-        referensiHukum: ["Cek koneksi jaringan", "Periksa kredensial di panel pengaturan AI Studio"],
+        ringkasan: "Maaf, tidak dapat menghubungi server.",
+        penjelasanMendalam: "Permintaan Anda gagal terkirim ke server, kemungkinan karena koneksi internet Anda terputus. Silakan periksa koneksi internet Anda dan **coba lagi beberapa saat kemudian**.\n\nNamun jangan khawatir, Anda tetap bisa menggunakan Pustaka Akad Lengkap, Sektor Hukum, dan Simulator Maslahat Kuantitatif di tab navigasi di atas secara instan bebas kuota!",
+        referensiHukum: ["Periksa koneksi internet Anda"],
         saranBacaan: ["Gunakan panel simulator akad luar jaringan di tab atas."]
       };
       setMessages(prev => [...prev, errorMsg]);

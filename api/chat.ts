@@ -27,6 +27,49 @@ function getGenAI() {
   return aiInstance;
 }
 
+// Detect transient/overload errors worth retrying (503 = model overloaded, 429 = rate limited)
+function isRetryableError(error: any): boolean {
+  const message = typeof error?.message === "string" ? error.message : JSON.stringify(error);
+  return (
+    error?.code === 503 ||
+    error?.code === 429 ||
+    message.includes('"code":503') ||
+    message.includes('"code":429') ||
+    message.toLowerCase().includes("overload") ||
+    message.toLowerCase().includes("high demand") ||
+    message.toLowerCase().includes("unavailable")
+  );
+}
+
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Call Gemini with automatic retry + exponential backoff when the model is temporarily
+// overloaded (503) or rate-limited (429). Other errors (bad request, auth, etc.) fail fast.
+async function callGeminiWithRetry(params: any, maxRetries = 2): Promise<any> {
+  const ai = getGenAI();
+  let lastError: any;
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      return await ai.models.generateContent(params);
+    } catch (error: any) {
+      lastError = error;
+      const isLastAttempt = attempt === maxRetries;
+
+      if (!isRetryableError(error) || isLastAttempt) {
+        throw error;
+      }
+
+      // Exponential backoff: ~800ms, then ~1600ms before retrying
+      const delayMs = 800 * Math.pow(2, attempt);
+      console.warn(`Gemini overloaded, retrying in ${delayMs}ms (attempt ${attempt + 1}/${maxRetries})`);
+      await sleep(delayMs);
+    }
+  }
+
+  throw lastError;
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
@@ -50,8 +93,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       });
     }
 
-    const ai = getGenAI();
-
     let modeInstruction = DEFAULTS_MODE_INSTRUCTIONS;
     if (mode === "akademik") {
       modeInstruction = AKADEMIK_MODE_INSTRUCTIONS;
@@ -68,7 +109,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }))
       : [];
 
-    const response = await ai.models.generateContent({
+    const response = await callGeminiWithRetry({
       model: "gemini-3.5-flash",
       contents: [
         ...formattedHistory,
@@ -109,9 +150,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.json(parsedData);
   } catch (error: any) {
     console.error("Gemini API Error:", error);
-    return res.status(500).json({
-      error: "Gagal menghubungkan ke HES AI Assistant.",
-      message: error.message || "Unknown error occurred",
+
+    const overloaded = isRetryableError(error);
+
+    return res.status(503).json({
+      ringkasan: overloaded
+        ? "Server AI sedang sangat sibuk."
+        : "Terjadi kesalahan saat menghubungi server AI.",
+      penjelasanMendalam: overloaded
+        ? "Model Gemini yang digunakan sedang menerima banyak permintaan dari pengguna lain di seluruh dunia secara bersamaan. Sistem sudah mencoba menghubungi ulang beberapa kali secara otomatis, namun masih belum berhasil.\n\nSilakan **tunggu sekitar 30-60 detik**, lalu kirim ulang pertanyaan Anda. Ini bukan masalah pada akun atau kunci API Anda."
+        : "Terjadi kendala teknis saat menghubungi layanan AI. Silakan coba lagi beberapa saat lagi.",
+      referensiHukum: [],
+      saranBacaan: [],
+      _debug: error.message || "Unknown error occurred",
     });
   }
 }
