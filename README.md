@@ -1,20 +1,148 @@
 <div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
+
+# 🎓 HES AI Assistant
+
+An AI-powered academic assistant designed for **Sharia Economic Law (HES)** students to support learning, research, legal analysis, and academic writing.
+
+![License](https://img.shields.io/badge/License-MIT-green.svg)
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black)
+![Gemini API](https://img.shields.io/badge/Gemini-API-4285F4)
+
 </div>
 
-# Run and deploy your AI Studio app
+---
 
-This contains everything you need to run your app locally.
+## 📖 About
 
-View your app in AI Studio: https://ai.studio/apps/330a009f-a771-4ee7-990a-82a47124414f
+HES AI Assistant is an intelligent web application developed to assist students of **Sharia Economic Law (HES)** in various academic activities, including:
 
-## Run Locally
+- 📚 Understanding HES concepts
+- ⚖️ Islamic legal analysis
+- 📝 Academic writing assistance
+- 📑 Journal recommendations
+- 📖 Qur'an & Hadith references
+- 💡 Research idea generation
+- 🤖 AI-powered conversations
 
-**Prerequisites:**  Node.js
+---
 
+## ✨ Features
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+- AI Chat Assistant
+- Responsive User Interface
+- Fast AI Responses
+- Secure API Configuration
+- Easy Deployment
+- Modern Design
+
+---
+
+## 🛠 Tech Stack
+
+- Node.js
+- JavaScript
+- HTML
+- CSS
+- Gemini API
+
+---
+
+# 🚀 Getting Started
+
+## Prerequisites
+
+- Node.js v18+
+- npm
+
+---
+
+## Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/rendiramadani434-eng/hes-ai-assistant.git
+```
+
+Go to the project folder
+
+```bash
+cd hes-ai-assistant
+```
+
+Install dependencies
+
+```bash
+npm install
+```
+
+---
+
+## Environment Variables
+
+Create a file named
+
+```
+.env.local
+```
+
+Add your Gemini API Key
+
+```env
+GEMINI_API_KEY=YOUR_API_KEY
+```
+
+---
+
+## Run Development Server
+
+```bash
+npm run dev
+```
+
+Open
+
+```
+http://localhost:3000
+```
+
+---
+
+## 📂 Project Structure
+
+```
+hes-ai-assistant
+│
+├── public/
+├── src/
+├── package.json
+├── .env.local
+└── README.md
+```
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome.
+
+1. Fork this repository.
+2. Create your feature branch.
+3. Commit your changes.
+4. Push to your branch.
+5. Open a Pull Request.
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+---
+
+<div align="center">
+
+Made with ❤️ by **Rendi Ramadani**
+
+</div>
