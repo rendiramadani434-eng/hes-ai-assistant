@@ -1,15 +1,19 @@
-<div align="center">
+<p align="center">
+  <img src="assets/banner.png" alt="HES AI Assistant Banner">
+</p>
 
-# 🎓 HES AI Assistant
+<h1 align="center">🎓 HES AI Assistant</h1>
 
-An AI-powered academic assistant designed for **Sharia Economic Law (HES)** students to support learning, research, legal analysis, and academic writing.
+<p align="center">
+AI-powered assistant for Sharia Economic Law students.
+</p>
 
-![License](https://img.shields.io/badge/License-MIT-green.svg)
-![Node.js](https://img.shields.io/badge/Node.js-18+-339933?logo=node.js&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-ES6-F7DF1E?logo=javascript&logoColor=black)
-![Gemini API](https://img.shields.io/badge/Gemini-API-4285F4)
-
-</div>
+<p align="center">
+<img src="https://img.shields.io/badge/Node.js-20-green">
+<img src="https://img.shields.io/badge/Gemini-AI-blue">
+<img src="https://img.shields.io/badge/JavaScript-ES6-yellow">
+<img src="https://img.shields.io/badge/License-MIT-red">
+</p>
 
 ---
 
